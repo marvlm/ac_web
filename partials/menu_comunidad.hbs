@@ -1,0 +1,16 @@
+{{#get "pages" filter="tags:hash-home" include="authors,tags" limit="5" as |featured|}}
+<article class="m-article-card">
+    <div class="card-menu-content">
+        <div class="pos-relative">
+            <h3>CONOCE TU COMUNIDAD</h3>
+            <hr>
+            <div>
+                {{#foreach pages}}
+                <a href="{{url}}" alt="{{title}}">/{{title}}</a>
+                <hr class="border-trans-dark-grey">
+                {{/foreach}}
+            </div>
+        </div>
+    </div>
+</article>
+{{/get}}

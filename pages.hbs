@@ -19,7 +19,7 @@ into the {body} of the default.hbs template --}}
         <p class="m-hero-description">{{description}}</p>
       {{/if}}
       <p class="m-heading__description">
-        {{plural ../pagination.total empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}} {{t "with this tag"}}
+        This is a test
       </p>
     </div>
     </section>
@@ -30,7 +30,7 @@ into the {body} of the default.hbs template --}}
       <div class="l-wrapper" data-aos="fade-up" data-aos-delay="300">
         <div class="l-grid centered">
           {{!-- The tag below iterates over all the posts --}}
-          {{> "loop"}}
+          {{> "pageloop"}}
         </div>
       </div>
       {{!-- Links to Previous/Next posts --}}

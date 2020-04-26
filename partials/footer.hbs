@@ -5,9 +5,10 @@ This footer template is shared across all the pages.
 <footer class="m-footer">
   <div class="m-footer__content">
     <p class="m-footer-copyright">
-      <span>{{@site.title}} &copy; {{date format="YYYY"}}</span>
-      <span>&nbsp; &bull; &nbsp;</span>
-      <span>{{t "Published with"}} <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a></span>
+      <span>Iglesia {{@site.title}} Madrid &copy; {{date format="YYYY"}}</span>
+      {{!-- <span>&nbsp; &bull; &nbsp;</span> --}} <br/>
+      <span>Calle de Vallehermoso 70, 28015, Madrid <br/>Tel. 914 48 44 11</span>
+      {{!-- <span>{{t "Published with"}} <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a></span> --}}
     </p>
 
     <nav class="m-footer-social">
@@ -21,9 +22,14 @@ This footer template is shared across all the pages.
           <span class="icon-twitter"></span>
         </a>
       {{/if}}
+        <a href="https://www.instagram.com/amistadmadrid/" target="_blank" rel="noopener" aria-label="Twitter">
+          <span class="icon-instagram"></span>
+        </a>
     </nav>
     <p class="m-footer-copyright jslicense">
-      <a href="{{asset "html/javascript.html"}}" rel="jslicense">{{t "JavaScript license information"}}</a>
+      <br>
+         Todos los derechos reservados. <img src="https://amistadcristianamadrid.org//images/lssi.png" alt="Ley de Servicios de la Sociedad de la Información y del Comercio Electrónico" width="15px" height="auto"/> | <a href="/aviso-legal-y-politica-de-privacidad/" style="color:#fff">Aviso legal y política de privacidad</a>
+      {{!-- <a href="{{asset "html/javascript.html"}}" rel="jslicense">{{t "JavaScript license information"}}</a> --}}
     </p>
   </div>
 </footer>

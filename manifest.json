@@ -1,0 +1,21 @@
+{
+    "name": "Amistad Cristiana Madrid",
+    "description": "Tu comunidad en el corazón de Madrid",
+    "short_name": "/C",
+    "start_url": "/",
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "/android-icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/android-icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+  }

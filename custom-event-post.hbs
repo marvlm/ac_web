@@ -1,0 +1,159 @@
+{{!--
+This template is used for the post page.
+--}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<style>
+    @media only screen and (min-width: 48rem) .m-event-article__content {
+        padding: 15px 20px 20px;
+    }
+
+    .m-event-article__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        padding: 10px 20px 20px;
+        position: relative;
+        z-index: 3;
+        font-size: 1.25rem;
+    }
+
+    .l-post-content ol,
+    .l-post-content ul {
+        letter-spacing: .2px;
+        /* line-height: 1.5; */
+        font-size: 1.125rem;
+        padding-left: 20px;
+        margin: 0 0 20px;
+    }
+
+    .m-featured-article {
+        background-color: var(--secondary-subtle-color);
+    }
+
+    .m-article-card__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        padding: 10px 20px 20px;
+        position: relative;
+        z-index: 3;
+        border-radius: 10px 10px 10px 10px;
+        background-color: var(--background-color);
+        font-size: 1.7rem;
+    }
+</style>
+
+<div class="main-wrap">
+    {{!-- Everything inside the #post tags pulls data from the post --}}
+    {{#post}}
+    {{!-- Special header.hbs partial to generate the <header> tag --}}
+    {{> header background=feature_image}}
+    {{!-- Inject styles of the hero image to make it responsive --}}
+    {{> hero background=feature_image}}
+    </section>
+    {{/post}}
+
+    <main>
+        <div class="l-content in-post">
+            {{#post}}
+            <div class="l-wrapper" data-aos="fade-up" data-aos-delay="300">
+                <div class="js-progress-content">
+                    <header class="m-heading">
+                        <h1 class="m-heading__title in-post">{{title}}</h1>
+                        <div class="m-heading__meta">
+                            {{#if primary_tag}}
+                            <span class="m-heading__meta__divider">&bull;</span>
+                            <a href="{{primary_tag.url}}" class="m-heading__meta__tag">{{primary_tag.name}}</a>
+                            <span class="m-heading__meta__divider">&bull;</span>
+                            {{/if}}
+                        </div>
+                    </header>
+                    <div class="l-grid centered">
+                        <div class="m-featured-slider">
+                            <div class="m-featured-slider__list js-featured-articles">
+                                <div class="m-featured-slider__list__item">
+                                    <article class="m-featured-article">
+                                        <div class="m-event-article__content">
+                                            <div class="pos-relative js-post-content">
+                                                {{content}}
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <article class="m-article-card no-picture">
+                            <div class="m-article-card__info">
+                                <div class="pos-relative js-post-content">
+                                    {{custom_excerpt}}
+                                </div>
+                            </div>
+                        </article>
+                        {{#get "posts" filter="primary_tag:{{primary_tag.slug}}+id:-{{id}}" limit="3"}}
+                        {{#foreach posts}}
+                        {{#if feature_image}}
+                        <article class="m-article-card {{post_class}}">
+                            <div class="m-article-card__picture lozad"
+                                data-background-image="{{img_url feature_image size="m"}}">
+                                {{else}}
+                                <article class="m-article-card no-picture {{post_class}}">
+                                    <div class="m-article-card__picture">
+                                        {{/if}}
+                                        <a href="{{url}}" class="m-article-card__picture-link" aria-label="Article"></a>
+                                        {{#if featured}}
+                                        <a href="{{url}}" class="m-article-card__featured js-tooltip"
+                                            data-tippy-content="{{t "Featured"}}" aria-label="Article">
+                                            <span class="icon-star"></span>
+                                        </a>
+                                        {{/if}}
+                                    </div>
+                                    {{#if primary_tag}}
+                                    <div class="m-article-card__info">
+                                        <a href="{{primary_tag.url}}"
+                                            class="m-article-card__tag">{{primary_tag.name}}</a>
+                                        {{else}}
+                                        <div class="m-article-card__info no-tag">
+                                            {{/if}}
+                                            <a href="{{url}}" class="m-article-card__info-link">
+                                                <div>
+                                                    <h2 class="m-article-card__title js-article-card-title {{#unless feature_image}}js-article-card-title-no-image{{/unless}}"
+                                                        title="{{title}}">
+                                                        {{title}}
+                                                    </h2>
+                                                </div>
+                                                <div class="m-article-card__timestamp">
+                                                    <span>&bull;</span>
+                                                    <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                </article>
+                                {{else}}
+                                <header class="m-heading no-margin">
+                                    <h3>{{t "No posts found"}}</h3>
+                                    <p>
+                                        {{t "Apparently there are no posts at the moment, check again later."}}
+                                    </p>
+                                </header>
+                                {{/foreach}}
+                                {{/get}}
+                            </div>
+                    </div>
+                </div>
+                {{/post}}
+            </div>
+    </main>
+</div>
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+<script defer src="{{asset "js/post.js"}}"></script>
+{{/contentFor}}

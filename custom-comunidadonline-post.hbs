@@ -1,0 +1,179 @@
+{{!--
+This template is used for the posts that are marked as pages.
+--}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<style>
+    .kg-card iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: cover;
+        z-index: 1;
+
+            {
+                {
+                 !-- opacity: .7;
+                --
+            }
+        }
+    }
+</style>
+{{!-- Everything inside the #post tags pulls data from the post --}}
+{{#post}}
+<div class="main-wrap">
+    {{!-- Special header.hbs partial to generate the <header> tag --}}
+    {{> header background=feature_image}}
+    {{!-- Inject styles of the hero image to make it responsive --}}
+    <section class="m-hero with-picture" data-aos="fade">
+        <div class="m-hero__picture {{#is "post"}}in-post{{/is}}">
+            {{content}}
+        </div>
+    </section>
+    <main>
+        <article>
+            <div class="l-content">
+                <div class="l-wrapper in-post" data-aos="fade-up" data-aos-delay="300">
+                    <div class="l-post-content">
+                        <header class="m-heading">
+                            <h1 class="m-heading__title in-post">{{title}}</h1>
+                            <div class="m-heading__meta">
+                                {{#if primary_tag}}
+                                <a href="{{primary_tag.url}}" class="m-heading__meta__tag">{{primary_tag.name}}</a>
+                                <span class="m-heading__meta__divider">&bull;</span>
+                                {{/if}}
+                                <span class="m-heading__meta__time">{{date published_at}}</span>
+                            </div>
+                        </header>
+                        <div class="pos-relative js-post-content">
+                            <div class="m-share">
+                                <div class="m-share__content js-sticky">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{url absolute='true'}}"
+                                        class="m-icon-button filled in-share" target="_blank" rel="noopener"
+                                        aria-label="Facebook">
+                                        <span class="icon-facebook"></span>
+                                    </a>
+                                    <a href="https://twitter.com/intent/tweet?text={{encode title}}&url={{url absolute='true'}}"
+                                        class="m-icon-button filled in-share" target="_blank" rel="noopener"
+                                        aria-label="Twitter">
+                                        <span class="icon-twitter"></span>
+                                    </a>
+                                    <button class="m-icon-button filled in-share progress js-scrolltop"
+                                        aria-label="Scroll to top">
+                                        <span class="icon-arrow-top"></span>
+                                        <svg>
+                                            <circle class="progress-ring__circle js-progress" fill="transparent"
+                                                r="0" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            {{custom_excerpt}}
+                        </div>
+                    </div>
+                    <div class="l-grid centered">
+                        {{> "actividades"}} 
+                    </div>
+                    <div class="l-grid centered">
+                        <h3>ÚLTIMOS MENSAJES</h3>
+                    </div>
+                    <div class="l-grid centered">
+                        {{#get "posts" limit="3" filter="tags:predicaciones" include="tags,authors"}}
+                        {{> "loop"}}
+                        {{/get}}
+                    </div>
+                    <div class="l-grid centered">
+                        <h3>SÍGUENOS EN INSTAGRAM</h3>
+                    </div>
+                    <div class="l-grid centered">
+                        {{#get "pages" filter="tags:instagram" include="tags,authors"}}
+                        {{#foreach pages}}
+                        {{#has tag="amistad"}}
+                            {{content}}
+                        {{/has}}
+                        {{/foreach}}
+                        {{/get}}
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+    <section class="m-author">
+        <div class="m-author__content">
+            <div class="m-author__picture">
+                <a href="{{primary_author.url}}" class="m-author-picture" aria-label="Author picture">
+                    {{#if primary_author.profile_image}}
+                    <div style="background-image: url({{primary_author.profile_image}});"></div>
+                    {{else}}
+                    <div style="background-image: url({{asset "images/default-avatar-square-small.jpg"}});"></div>
+                    {{/if}}
+                </a>
+            </div>
+            <div class="m-author__info">
+                <h4 class="m-author__name">
+                    <a href="{{primary_author.url}}">{{primary_author.name}}</a>
+                </h4>
+                {{#has author="count:>1"}}
+                <p class="m-small-text in-author-along-with">
+                    {{authors separator=", " prefix=(t "Among with no break line") from="2"}}
+                </p>
+                {{/has}}
+                {{#if primary_author.bio}}
+                <p class="m-author__bio">{{primary_author.bio}}</p>
+                {{/if}}
+                <ul class="m-author-links">
+                    {{#if primary_author.website}}
+                    <li>
+                        <a href="{{primary_author.website}}" target="_blank" rel="noopener" aria-label="Website">
+                            <span class="icon-globe"></span>
+                        </a>
+                    </li>
+                    {{/if}}
+                    {{#if primary_author.facebook}}
+                    <li>
+                        <a href="https://facebook.com/{{primary_author.facebook}}" target="_blank" rel="noopener"
+                            aria-label="Facebook">
+                            <span class="icon-facebook"></span>
+                        </a>
+                    </li>
+                    {{/if}}
+                    {{#if primary_author.twitter}}
+                    <li>
+                        <a href="https://twitter.com/{{primary_author.twitter}}" target="_blank" rel="noopener"
+                            aria-label="Twitter">
+                            <span class="icon-twitter"></span>
+                        </a>
+                    </li>
+                    {{/if}}
+                </ul>
+            </div>
+        </div>
+    </section>
+    {{!-- Related posts --}}
+    {{#get "posts" limit="3" filter="tags:[{{post.tags}}]+id:-{{post.id}}" include="tags,authors" as |related|}}
+    <section class="m-recommended">
+        <div class="l-wrapper in-recommended">
+            <h3 class="m-section-title in-recommended">{{t "Recommended for you"}}</h3>
+            <div class="m-recommended-articles">
+                <div class="m-recommended-slider js-recommended-articles">
+                    {{!-- The tag below iterates over all the related posts --}}
+                    {{> "loop"}}
+                </div>
+            </div>
+        </div>
+    </section>
+    {{/get}}
+</div>
+{{/post}}
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+<script defer src="{{asset "js/page.js"}}"></script>
+{{/contentFor}}

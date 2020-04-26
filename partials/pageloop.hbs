@@ -1,7 +1,7 @@
 {{!-- The template below includes the markup for each post --}}
 
-{{#foreach posts}}
-{{#is "post"}}
+{{#foreach pages}}
+{{#is "page"}}
 <div class="m-recommended-slider__item">
   {{/is}}
   {{#if feature_image}}
@@ -11,7 +11,11 @@
       <article class="m-article-card no-picture {{post_class}}">
         <div class="m-article-card__picture">
           {{/if}}
-          <a href="{{url}}" class="m-article-card__picture-link" aria-label="Article"></a>
+          {{#has slug="peticion-de-oracion"}}
+            <a target="_blank" rel="noopener" class="m-article-card__picture-link" data-open-in-church-center-modal="true" href="https://amistadcristiana.churchcenter.com/people/forms/112846"></a>
+          {{else}}
+            <a href="{{url}}" class="m-article-card__picture-link" aria-label="Article"></a>
+          {{/has}}
           <a href="{{primary_author.url}}" class="m-article-card__author js-tooltip" aria-label="Authors"
             data-tippy-content="{{t "Posted by"}} {{primary_author.name}} {{authors autolink="false" from="2" prefix=(t "Among with") separator=" , "}}">
             {{#if primary_author.profile_image}}
@@ -29,27 +33,40 @@
         </div>
         {{#if primary_tag}}
         <div class="m-article-card__info">
+          {{#has slug="peticion-de-oracion"}} 
+          <a target="_blank" class="m-article-card__tag" rel="noopener" data-open-in-church-center-modal="true" href="https://amistadcristiana.churchcenter.com/people/forms/112846">/{{primary_tag.name}}</a>
+          {{else}}
           <a href="{{primary_tag.url}}" class="m-article-card__tag">/{{primary_tag.name}}</a>
+          {{/has}}
           {{else}}
           <div class="m-article-card__info no-tag">
             {{/if}}
-            <a href="{{url}}" class="m-article-card__info-link">
+              {{#has slug="peticion-de-oracion"}} 
+                  <a target="_blank" class="m-article-card__info-link" rel="noopener" data-open-in-church-center-modal="true" href="https://amistadcristiana.churchcenter.com/people/forms/112846">
+              {{else}}
+                  <a href="{{url}}" class="m-article-card__info-link">
+              {{/has}}
               <div>
                 <h2
                   class="m-article-card__title js-article-card-title {{#unless feature_image}}js-article-card-title-no-image{{/unless}}"
                   title="{{title}}">
                   {{title}}
                 </h2>
+                <p>{{custom_excerpt}}</p>
               </div>
               <div class="m-article-card__timestamp">
-                <span>{{date published_at timeago="true"}}</span>
-                <span>&bull;</span>
-                <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                {{#has slug="peticion-de-oracion"}} 
+                  <h2>Evianos tu petición </h2><span class="icon-arrow-right"></span>
+                {{else}}
+                  <h2>Conoce más </h2><span class="icon-arrow-right"></span>
+                {{/has}}                
+                {{!-- <span>&bull;</span>
+                <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span> --}}
               </div>
             </a>
           </div>
       </article>
-      {{#is "post"}}
+      {{#is "page"}}
     </div>
     {{/is}}
     {{else}}

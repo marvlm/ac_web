@@ -29,26 +29,25 @@ into the {body} of the default.hbs template --}}
                 {{content}}
               </div>
             </div>
+            <div class="l-grid centered">
+                <h3>SÍGUENOS EN INSTAGRAM</h3>
+            </div>
+            <div class="l-grid centered">
+                {{#get "pages" filter="primary_tag:{{primary_tag.slug}}" include="tags,authors"}}
+                {{#foreach pages}}
+                    {{#has tag="instagram"}}
+                        {{content}}
+                    {{/has}}
+                {{/foreach}}
+                {{/get}}
+            </div>
           </div>
         </div>
       </article>
     </main>
   </div>
 {{/post}}
-{{!-- Related posts --}}
-{{#get "posts" limit="3" filter="primary_tag:{{primary_tag.slug}}+id:-{{post.id}}+page:true" include="tags,authors" as |related|}}
-  <section class="m-recommended">
-    <div class="l-wrapper in-recommended">
-      <h3 class="m-section-title in-recommended">{{t "Recommended for you"}}</h3>
-      <div class="m-recommended-articles">
-        <div class="m-recommended-slider js-recommended-articles">
-          {{!-- The tag below iterates over all the related posts --}}
-          {{> "loop"}}
-        </div>
-      </div>
-    </div>
-  </section>
-{{/get}}
+
 {{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
 {{#contentFor "scripts"}}
   <script defer src="{{asset "js/page.js"}}"></script>

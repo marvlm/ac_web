@@ -1,0 +1,28 @@
+<div class="m-featured-slider">
+    <div class="m-featured-slider__list js-featured-articles">
+        <div class="m-featured-slider__list__item">
+            <article class="m-featured-article">
+                <div class="m-featured-article__picture">
+                    {{#get "pages" filter="tags:mapa" include="tags" limit="1" as |map|}}
+                    {{#if map}}
+                    {{#foreach map}}
+                    {{content}}
+                    {{/foreach}}
+                    {{/if}}
+                    {{/get}}
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+<article class="m-article-card">
+    <div class="card-menu-content">
+        <div class="pos-relative">
+            {{#get "pages" filter="tags:direccion" limit="1" include="authors,tags"}}
+            {{#foreach pages}}
+            {{content}}
+            {{/foreach}}
+            {{/get}}
+        </div>
+    </div>
+</article>

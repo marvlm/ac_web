@@ -43,7 +43,11 @@
       }
 
       &.nav-current {
-        font-weight: 600;
+        font-weight: 900;
+      }
+
+      &:hover {
+        font-weight: 900;
       }
 
       a {
